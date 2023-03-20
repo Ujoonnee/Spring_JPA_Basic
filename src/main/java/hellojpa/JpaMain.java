@@ -15,22 +15,16 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Member member = new Member();
-            member.setId(1L);
-            member.setName("HelloA");
+            // 영속
+            Member member = em.find(Member.class, 1L);      // 1차 캐시에 없으므로 DB에서 SELECT
+            member.setName("memberDetached");                   // em.clear()에 의해 UPDATE 쿼리를 생성하지 않음
 
-            em.persist(member);
+            em.clear();                                         // 영속성 컨텍스트 초기화
 
-            Member findMember = em.find(Member.class, 1L);
-            findMember.setName("HelloJPA");
+            Member member1 = em.find(Member.class, 1L);     // 초기화에 의해 1차 캐시에 없으므로 다시 DB에서 SELECT
+            member1.setName("memberAAA");                       // flush 시점에 UPDATE 쿼리 생성
 
-            List<Member> result = em.createQuery("select m from Member m", Member.class)
-                    .setFirstResult(1)
-                    .setMaxResults(10)
-                    .getResultList();
-            result.forEach(mber -> System.out.println(mber.getName()));
-
-//            tx.commit();
+            tx.commit();                                        // commit 전 자동으로 flush
 
         } catch (Exception e) {
             tx.rollback();
