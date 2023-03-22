@@ -15,9 +15,25 @@ public class JpaMain {
         tx.begin();
 
         try {
+            Team team = new Team();
+            team.setName("teamA");
+            em.persist(team);
+
             Member member = new Member();
-            member.setName("memberB");
+            member.setUsername("member1");
+            member.setTeam(team);
             em.persist(member);
+
+            // 1차 캐시가 아닌 DB에서 조회하는 쿼리를 보고 싶다면
+            em.flush();
+            em.clear();
+
+            Member findMember = em.find(Member.class, member.getId());
+            Team findTeam = findMember.getTeam();
+            System.out.println("findTeam = " + findTeam.getName());
+
+            Team newTeam = em.find(Team.class, 100L);
+            findMember.setTeam(newTeam);
 
             tx.commit();
 
