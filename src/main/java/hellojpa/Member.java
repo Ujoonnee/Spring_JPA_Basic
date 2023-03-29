@@ -1,12 +1,14 @@
 package hellojpa;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @SequenceGenerator(name = "MEMBER_SEQ_GENERATOR",
-                   sequenceName = "SEQ_MEMBER_PK",
-                   initialValue = 1,
-                   allocationSize = 50)
+        sequenceName = "SEQ_MEMBER_PK",
+        initialValue = 1,
+        allocationSize = 50)
 public class Member {
 
     @Id @GeneratedValue
@@ -22,6 +24,9 @@ public class Member {
     @ManyToOne  // Member : Team = N:1
     @JoinColumn(name = "team_id")
     private Team team;
+
+    @OneToMany(mappedBy = "member")
+    private List<MemberProduct> memberProducts = new ArrayList<>();
 
     public Long getId() {
         return id;
