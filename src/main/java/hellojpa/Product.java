@@ -8,6 +8,7 @@ import java.util.List;
 public class Product {
 
     @Id @GeneratedValue
+    @Column(name = "product_id")
     private Long id;
 
     private String name;

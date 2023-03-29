@@ -21,14 +21,6 @@ public class  JpaMain {
 
         try {
 
-            Order order = new Order();
-            em.persist(order);
-
-            OrderItem orderItem = new OrderItem();
-            em.persist(orderItem);
-
-            order.addOrderItem(orderItem);
-
 
             tx.commit();
 
