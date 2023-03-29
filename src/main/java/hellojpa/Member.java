@@ -9,7 +9,7 @@ import java.util.List;
         sequenceName = "SEQ_MEMBER_PK",
         initialValue = 1,
         allocationSize = 50)
-public class Member {
+public class Member extends BaseEntity {
 
     @Id @GeneratedValue
     @Column(name = "member_id")
@@ -17,9 +17,6 @@ public class Member {
 
     @Column(name = "username")
     private String username;
-
-//    @Column(name = "team_id")
-//    private Long teamId;
 
     @ManyToOne  // Member : Team = N:1
     @JoinColumn(name = "team_id")

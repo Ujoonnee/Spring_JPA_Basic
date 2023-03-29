@@ -2,6 +2,7 @@ package jpashop;
 
 import hellojpa.Member;
 import hellojpa.Team;
+import jpashop.domain.Book;
 import jpashop.domain.Order;
 import jpashop.domain.OrderItem;
 
@@ -20,7 +21,11 @@ public class  JpaMain {
         tx.begin();
 
         try {
+            Book book = new Book();
+            book.setName("JPA");
+            book.setAuthor("김영한");
 
+            em.persist(book);
 
             tx.commit();
 
