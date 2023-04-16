@@ -1,6 +1,7 @@
 package hellojpa;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,14 @@ public class Member extends BaseEntity {
     @Column(name = "username")
     private String username;
 
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
+
+    private String city;
+    private String street;
+    private String zipcode;
+
+    /*
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
     private Team team;
@@ -48,4 +57,5 @@ public class Member extends BaseEntity {
     public void setTeam(Team team) {
         this.team = team;
     }
+     */
 }
